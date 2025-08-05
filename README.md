@@ -3,6 +3,21 @@
 
 Complete monitoring setup for Google Cloud Run services with alerts and dashboards.
 
+## File Structure
+
+```
+infra/
+├── environments/dev/     # Environment-specific config
+│   ├── main.tf          # Main configuration
+│   ├── variables.tf     # Input variables
+│   └── outputs.tf       # Output values
+└── modules/
+    ├── cloud_run_service/     # Cloud Run service module
+    └── cloud_run_monitoring/  # Monitoring setup module
+```
+
+Copy the `dev` environment to create `staging` or `prod` with different configurations.
+
 ## What You Get
 
 - **Error Rate Alerts**: Triggers when errors exceed 5/minute (configurable)
@@ -97,18 +112,3 @@ backend "s3" {
 **Alerts not firing?**
 - Test with some traffic to trigger thresholds
 - Check alert thresholds match your expected traffic patterns
-
-## File Structure
-
-```
-infra/
-├── environments/dev/     # Environment-specific config
-│   ├── main.tf          # Main configuration
-│   ├── variables.tf     # Input variables
-│   └── outputs.tf       # Output values
-└── modules/
-    ├── cloud_run_service/     # Cloud Run service module
-    └── cloud_run_monitoring/  # Monitoring setup module
-```
-
-Copy the `dev` environment to create `staging` or `prod` with different configurations.
