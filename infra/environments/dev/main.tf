@@ -7,20 +7,35 @@ terraform {
     }
   }
   
-  backend "gcs" {
-    bucket = "infra-new-state"
-    prefix = "examples/cloud-run-monitoring"
-  }
+  # Configure your state backend here
+  # For local state (default):
+  # backend "local" {}
+  
+  # For GCS backend:
+  # backend "gcs" {
+  #   bucket = "your-terraform-state-bucket"
+  #   prefix = "cloud-run-monitoring/dev"
+  # }
+  
+  # For S3 backend:
+  # backend "s3" {
+  #   bucket = "your-terraform-state-bucket"
+  #   key    = "cloud-run-monitoring/dev/terraform.tfstate"
+  #   region = "us-east-1"
+  # }
 }
 
 provider "google" {
-  project = "launchflow-services-dev"
-  region  = "us-central1"
+  project = local.gcp_project_id
+  region  = local.region
 }
 
 locals {
-  service_name = "my-app"
-  alert_email  = "alerts@launchflow.com"
+  # Update these values for your environment
+  gcp_project_id = "your-gcp-project-id"  # Replace with your GCP project ID
+  region         = "us-central1"           # Replace with your preferred region
+  service_name   = "my-app"                # Replace with your service name
+  alert_email    = "alerts@example.com"    # Replace with your alert email
 }
 
 # Cloud Run service
@@ -28,7 +43,7 @@ module "cloud_run_service" {
   source = "../../modules/cloud_run_service"
   
   service_name = local.service_name
-  region       = "us-central1"
+  region       = local.region
   image_url    = "gcr.io/cloudrun/hello"  # Replace with your image
   
   # Resource limits
