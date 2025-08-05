@@ -1,0 +1,32 @@
+
+# Copy this file to terraform.tfvars and update with your values
+
+# GCP Configuration
+gcp_project_id = "your-gcp-project-id"
+region         = "us-central1"
+
+# Service Configuration
+service_name = "my-app"
+image_url    = "gcr.io/your-project/your-app:latest"
+
+# Monitoring Configuration
+alert_email           = "alerts@example.com"
+error_rate_threshold  = 5     # errors per minute
+latency_threshold_ms  = 2000  # milliseconds
+
+# Scaling Configuration
+min_instances = 0
+max_instances = 10
+
+# Resource Limits
+cpu_limit    = "1"
+memory_limit = "512Mi"
+
+# Environment Variables (optional)
+env_vars = {
+  ENV     = "development"
+  API_KEY = "your-api-key"
+}
+
+# Access Control
+allow_public_access = true
